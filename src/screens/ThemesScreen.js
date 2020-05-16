@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Button, Switch, StatusBar } from 'react-native';
+import React, { useContext } from "react";
+import { StyleSheet, Text, View, Switch, StatusBar } from 'react-native';
 import { Context as ThemeContext } from '../context/ThemeContext';
 
 

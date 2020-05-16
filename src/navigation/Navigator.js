@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme, } from '@react-navigation/native';
-//import { useColorScheme } from 'react-native';
+import { Context as ThemeContext } from '../context/ThemeContext';
 import RootStack from './RootStack'
 
 const Navigator = () => {
-  //const scheme = useColorScheme('');
+  const { state, toggle } = useContext(ThemeContext);
   return (
-    <NavigationContainer >
+    <NavigationContainer theme={state.mode === 'dark' ? DarkTheme : DefaultTheme}>
       <RootStack />
     </NavigationContainer>
   );
