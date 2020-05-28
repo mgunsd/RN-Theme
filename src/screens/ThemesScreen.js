@@ -1,24 +1,20 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, View, Switch, StatusBar } from 'react-native';
-import { Context as ThemeContext } from '../context/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 
 const ThemeScreen = ({ navigation }) => {
-  const { state, toggle } = useContext(ThemeContext);
+  const { colors, dark } = useTheme();
 
   return (
 
-    <View style={[styles.container, { backgroundColor: state.colors.primaryBackground }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar
-        barStyle={state.mode === 'dark' ? 'light-content' : 'dark-content'}
+        barStyle={dark ? 'light-content' : 'dark-content'}
       />
-      <Text style={{ color: state.colors.primaryText }}>
-        Welcome... This is {state.mode} mode
+      <Text style={{ color: colors.text }}>
+        Welcome... This is  theme
       </Text>
-      <Switch
-        value={state.toggle}
-        onValueChange={toggle}
-      />
 
     </View>
   );

@@ -1,37 +1,16 @@
-import createDataContext from './createDataContext';
-import { Appearance } from 'react-native-appearance';
-import { getTheme } from '../themes/theme';
+import React, { useState } from 'react'
+import { Appearance } from 'react-native-appearance'
+import { themes } from '../constants/Themes';
 
-const themeReducer = (state, action) => {
-  switch (action.type) {
-    case 'set_theme':
-      return action.payload === true ?
-        { ...state, colors: getTheme('light'), toggle: true, mode: 'light' }
-        : { ...state, colors: getTheme('dark'), toggle: false, mode: 'dark' }
-    default:
-      return state;
-  }
+const deviceMode = Appearance.getColorScheme();
+export const ThemeContext = React.createContext({ colors: (themes[deviceMode]).colors });
+export const useTheme = () => React.useContext(ThemeContext);
+
+export const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState(deviceMode)
+  return (
+    <ThemeContext.Provider value={{ colors: (themes[theme]).colors, setTheme, mode: theme.dark, theme: theme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
-
-const toggle = (dispatch) => {
-  return (value) => {
-    dispatch({ type: 'set_theme', payload: value });
-  };
-};
-
-const osTheme = Appearance.getColorScheme();
-
-export const { Context, Provider } = createDataContext(
-  themeReducer,
-  { toggle },
-  {
-    mode: osTheme,
-    colors: getTheme(osTheme),
-    toggle: false
-  }
-);
-
-
-
-
-
