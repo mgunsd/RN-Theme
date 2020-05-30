@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Appearance } from 'react-native-appearance'
 import { themes } from '../constants/Themes';
 
-const deviceMode = Appearance.getColorScheme();
+const deviceMode = typeof (deviceMode) == 'undefined' ? 'light' : Appearance.getColorScheme();
 export const ThemeContext = React.createContext({ colors: (themes[deviceMode]).colors });
 export const useTheme = () => React.useContext(ThemeContext);
 
